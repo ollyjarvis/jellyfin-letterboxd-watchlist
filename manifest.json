@@ -5,7 +5,7 @@
     "overview": "Sync Letterboxd watchlists to Jellyfin Collections",
     "description": "Create collections in Jellyfin that contain all the films found locally that appear in your Letterboxd watchlist",
     "owner": "ollyjarvis",
-    "category": "Films and Programmes",
+    "category": "MoviesAndShows",
     "imageUrl": "https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/images/letterboxd-watchlist.png",
     "versions": [
       {
