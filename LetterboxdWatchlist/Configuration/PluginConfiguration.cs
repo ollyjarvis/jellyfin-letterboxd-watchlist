@@ -5,6 +5,6 @@ namespace LetterboxdWatchlist.Configuration
 {
     public class PluginConfiguration : BasePluginConfiguration
     {
-        public User[] Users { get; set; } = Array.Empty<Username>();
+        public User[] Users { get; set; } = Array.Empty<User>();
     }
 }

@@ -57,7 +57,7 @@ public class LetterboxdWatchlistTask : IScheduledTask
 
     public async Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
     {
-        var usernames = Configuration.Usernames;
+        var usernames = Configuration.Users;
 
         foreach (var username in usernames)
         {
