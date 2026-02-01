@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>Letterboxd Watchlist</title>
+</head>
+
+<body>
+    <div data-role="page" id="LetterboxdWatchlistConfigurationPage"
+        class="page type-interior pluginConfigurationPage fullWidthContent">
+        <div class="content-primary">
+            <div class="verticalSection">
+                <div class="sectionTitleContainer">
+                    <h2 class="sectionTitle">Letterboxd Watchlist</h2>
+                    <a is="emby-linkbutton" class="raised raised-mini" style="margin-left: 2em;" target="_blank"
+                        href="https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist">
+                        <i class="md-icon button-icon button-icon-left secondaryText"></i>
+                        <span>Help</span>
+                    </a>
+                </div>
+            </div>
+            <hr class="solid">
+
+            <!-- Might need to revisit the 95% here to make it responsive -->
+            <form class="LetterboxdWatchlistConfigurationForm" style="max-width: 95%">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top;text-align: left;">Username<br /><br /><span
+                                    style="font-size: 75%; font-weight: normal; font-style: italic;">Letterboxd username
+                                    to get watchlist from.</span></th>
+                            <th style="vertical-align: top;text-align: right;"><button is="emby-button"
+                                    id="add-custom-button" type="button" class="raised button-submit block">Add</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="configs-host"></tbody>
+                </table>
+                <br />
+                <button id="saveConfig" is="emby-button" type="submit" class="raised button-submit block">
+                    <span>Save</span>
+                </button>
+            </form>
+        </div>
+        <template id="pluginConfiguredLetterboxdTemplate">
+            <tr>
+                <td style="vertical-align: top">
+                    <input class="emby-input" type="text" data-id="username" />
+                </td>
+                <td style="vertical-align: top;text-align: right;"><button is="emby-button" data-id="remove-button"
+                        type="button" class="raised button-submit block">Remove</button></td>
+            </tr>
+        </template>
+        <script type="text/javascript">
+            if (typeof LetterboxdWatchlist == 'undefined') {
+
+                const LetterboxdWatchlist = {
+                    pluginId: "b9bc9cff-1797-4a1e-bf8f-9ecdcf41f82a",
+                    configsHost: document.querySelector("#configs-host"),
+
+                    btnSave: document.querySelector("#saveConfig"),
+                    btnAddCustom: document.querySelector("#add-custom-button"),
+
+                    saveConfig: function (e) {
+                        e.preventDefault();
+                        Dashboard.showLoadingMsg();
+
+                        let usernames = [];
+
+                        document.querySelectorAll("#configs-host tr").forEach(function (tr) {
+                            const username = tr.querySelector("[data-id=username]").value;
+
+                            usernames.push({
+                                username: username,
+                            })
+                        })
+
+                        const config = {
+                            Usernames: usernames
+                        };
+
+                        window.ApiClient.updatePluginConfiguration(LetterboxdWatchlist.pluginId, config)
+                            .then(function (result) {
+
+                                Dashboard.processPluginConfigurationUpdateResult(result);
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                            })
+                            .finally(function () {
+                                Dashboard.hideLoadingMsg();
+                            });
+
+                    },
+                    loadConfig: function () {
+                        Dashboard.showLoadingMsg();
+                        window.ApiClient.getPluginConfiguration(LetterboxdWatchlist.pluginId)
+                            .then(function (config) {
+                                config.Usernames.forEach(LetterboxdWatchlist.addNewConfig);
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                            })
+                            .finally(function () {
+                                Dashboard.hideLoadingMsg();
+                            });
+                    },
+                    addNewConfig: function (config = undefined) {
+                        console.log(config)
+                        if (config === undefined) {
+                            config = {
+                                username: "",
+                            };
+                        }
+
+                        const template = document.querySelector("#pluginConfiguredLetterboxdTemplate");
+                        const clone = template.content.cloneNode(true);
+                        clone.querySelector("[data-id=username]").value = config.username;
+
+                        clone.querySelector("[data-id=remove-button]").addEventListener("click", LetterboxdWatchlist.removeConfig);
+
+                        LetterboxdWatchlist.configsHost.appendChild(clone);
+                    },
+                    removeConfig: function (e) {
+                        LetterboxdWatchlist.configsHost.removeChild(e.target.closest("tr"));
+                    },
+                    addNewConfigEvent: function (e) {
+                        e.preventDefault();
+                        LetterboxdWatchlist.addNewConfig();
+                    },
+                    init: function () {
+                        LetterboxdWatchlist.btnSave.addEventListener("click", LetterboxdWatchlist.saveConfig);
+                        LetterboxdWatchlist.btnAddCustom.addEventListener("click", LetterboxdWatchlist.addNewConfigEvent);
+                        LetterboxdWatchlist.loadConfig();
+                    }
+                }
+
+                // view.addEventListener("viewshow", function (e) {
+                document.querySelector('#LetterboxdWatchlistConfigurationPage').addEventListener("pageshow", function () {
+                    LetterboxdWatchlist.init();
+                });
+            }
+        </script>
+    </div>
+</body>
+
+</html>

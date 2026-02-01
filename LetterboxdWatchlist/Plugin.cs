@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using LetterboxdSync.Configuration;
+using LetterboxdWatchlist.Configuration;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Model.Plugins;
 using MediaBrowser.Model.Serialization;
 
-namespace LetterboxdSync;
+namespace LetterboxdWatchlist;
 
 /// <summary>
 /// The main plugin.
 /// </summary>
-public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
+public class Plugin : BasePlugin<PluginConfiguration>, IHasPluginConfiguration, IHasWebPages
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Plugin"/> class.
@@ -26,31 +26,23 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     }
 
     /// <inheritdoc />
-    public override string Name => "LetterboxdSync";
+    public override string Name => "Letterboxd Watchlist";
 
     /// <inheritdoc />
-    public override Guid Id => Guid.Parse("b1fb3d98-3336-4b87-a5c9-8a948bd87233");
+    public override Guid Id => Guid.Parse("b9bc9cff-1797-4a1e-bf8f-9ecdcf41f82a");
 
     /// <summary>
     /// Gets the current plugin instance.
     /// </summary>
-    public static Plugin? Instance { get; private set; }
+    public static Plugin? Instance { get; private set; } = null!;
 
     /// <inheritdoc />
     public IEnumerable<PluginPageInfo> GetPages()
     {
-        return new[]
+        yield return new PluginPageInfo
         {
-            new PluginPageInfo
-            {
-                Name = "configLetterboxd",
-                EmbeddedResourcePath = $"{GetType().Namespace}.Web.configLetterboxd.html"
-            },
-            new PluginPageInfo
-            {
-                Name = "configLetterboxdjs",
-                EmbeddedResourcePath = $"{GetType().Namespace}.Web.configLetterboxd.js"
-            }
+            Name = Name,
+            EmbeddedResourcePath = $"{GetType().Namespace}.Web.configLetterboxd.html"
         };
     }
 }
