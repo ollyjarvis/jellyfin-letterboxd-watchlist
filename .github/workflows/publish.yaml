@@ -3,7 +3,6 @@ name: '🚀 Publish'
 on:
     push:
         branches: 
-            - main
             - master
         paths-ignore:
             - 'README.md'
@@ -12,7 +11,7 @@ permissions:
   contents: write
 
 env:
-    DOTNET_VERSION: '6.0.x'
+    DOTNET_VERSION: '9.0.x'
 
 jobs:
     build:
@@ -99,7 +98,7 @@ jobs:
             
             - name: 'Update manifest.json'
               run: |
-                  TARGETABI="10.9.0.0"
+                  TARGETABI="10.11.6.0"
                   TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
                   CHECKSUM=$(md5sum publish/${{ github.event.repository.name }}-v${{ needs.build.outputs.release-version }}.zip | awk '{print $1}')
