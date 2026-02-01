@@ -1,7 +1,7 @@
 ---
 name: "Letterboxd Watchlist"
 guid: "b9bc9cff-1797-4a1e-bf8f-9ecdcf41f82a"
-version: "0.0.3.0"
+version: "0.0.4.0"
 targetAbi: "10.11.6.0"
 framework: "net9.0"
 overview: "Sync Letterboxd watchlists to Jellyfin Collections"

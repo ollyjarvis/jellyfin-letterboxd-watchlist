@@ -9,6 +9,14 @@
     "imageUrl": "https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/images/letterboxd-watchlist.png",
     "versions": [
       {
+        "version": "0.0.4.0",
+        "changelog": "- update readme, add paging support, add rate limit (3ca4a32)",
+        "targetAbi": "10.11.6.0",
+        "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v0.0.4/jellyfin-letterboxd-watchlist-v0.0.4.zip",
+        "checksum": "d373d7e639935ead894a63d1a92ba543",
+        "timestamp": "2026-02-01T16:53:49Z"
+      },
+      {
         "version": "0.0.3.0",
         "changelog": "- fix manifest (1520790)",
         "targetAbi": "10.11.6.0",
