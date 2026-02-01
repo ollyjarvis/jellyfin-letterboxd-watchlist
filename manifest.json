@@ -9,6 +9,14 @@
     "imageUrl": "https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/images/letterboxd-watchlist.png",
     "versions": [
       {
+        "version": "0.0.1.0",
+        "changelog": "",
+        "targetAbi": "10.11.6.0",
+        "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v0.0.1/jellyfin-letterboxd-watchlist-v0.0.1.zip",
+        "checksum": "92d15a7529c61610517e3dc7d4a6d7ba",
+        "timestamp": "2026-02-01T14:19:20Z"
+      },
+      {
         "version": "1.0.1.0",
         "changelog": "- fix build (5061f8c)\n- chore(release): v1.0.3 (4cd269a)",
         "targetAbi": "10.11.6.0",
