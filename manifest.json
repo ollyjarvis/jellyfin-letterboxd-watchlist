@@ -23,22 +23,6 @@
         "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v0.0.1/jellyfin-letterboxd-watchlist-v0.0.1.zip",
         "checksum": "92d15a7529c61610517e3dc7d4a6d7ba",
         "timestamp": "2026-02-01T14:19:20Z"
-      },
-      {
-        "version": "1.0.1.0",
-        "changelog": "- fix build (5061f8c)\n- chore(release): v1.0.3 (4cd269a)",
-        "targetAbi": "10.11.6.0",
-        "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v1.0.1/jellyfin-letterboxd-watchlist-v1.0.1.zip",
-        "checksum": "894d56c59ee3301d2d943423a5d5ea2a",
-        "timestamp": "2026-02-01T13:57:33Z"
-      },
-      {
-        "version": "1.0.0.0",
-        "changelog": "- Initial version",
-        "targetAbi": "10.11.6.0",
-        "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v1.0.0/jellyfin-letterboxd-watchlist-v1.0.0.0.zip",
-        "checksum": "89f9d6e5b02c6907c6952703f30a8c9e",
-        "timestamp": "2025-01-18T00:00:00Z"
       }
     ]
   }
