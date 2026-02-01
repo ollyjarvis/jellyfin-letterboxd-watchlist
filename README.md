@@ -10,7 +10,7 @@ This plugin updates your collections daily by grabbing the TMDB IDs from Letterb
 
 ## Installation
 
-1. Open the dashboard in Jellyfin, then select `Catalog` and open `Settings` at the top with the `⚙️` button.
+1. Open the dashboard in Jellyfin, then select `Plugins` and open `Manage Repositories` at the top.
 
 2. Click the `+` button and add the repository URL below, naming it whatever you like and save.
 
@@ -18,7 +18,7 @@ This plugin updates your collections daily by grabbing the TMDB IDs from Letterb
 https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/manifest.json
 ```
 
-3. Go back to `Catalog`, click on 'Letterboxd Watchlist' in the 'Films and Programmes' group and install the most recent version.
+3. Go back to `Plugins`, click on 'Letterboxd Watchlist' in the 'Films and Programmes' group and install the most recent version.
 
 4. Restart Jellyfin and go back to the plugin settings. Go to `My Plugins` and click on 'Letterboxd Watchlist' to add Letterboxds users to track.
    
@@ -33,5 +33,6 @@ https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/maste
  - For large or many watchlists this will take a while so as to not spam the Letterboxd site too much. I recommend reducing the frequency to every few days/ once a week when searching over 100 films.
 
 ## Known Issues
+
 
  - Errors on TV shows in watchlist due to TMDB tagging.
