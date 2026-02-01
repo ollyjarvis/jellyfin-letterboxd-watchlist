@@ -1,21 +1,12 @@
-<p align="center">
-    <img src="/images/letterboxd-sync.png" width="70%">
-</p>
-
-<div align="center">
-    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/danielveigasilva/jellyfin-plugin-letterboxd-sync">
-    <img alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/danielveigasilva/jellyfin-plugin-letterboxd-sync/latest/total">
-</div>
-
-<p/>
+# Letterboxd Watchlist
     
 <p align="center">
-    A unofficial plugin to keep your watched movie history from Jellyfin automatically updated to your Letterboxd diary.
+    Generate Collections containing items on your Letterboxd watchlist that are found in your Jellyfin Library.
 </p>
 
 ## About
 
-This plugin sends daily updates to the Letterboxd diary informing the films watched on Jellyfin. Since the Letterboxd API is not publicly available, this project uses the HtmlAgilityPack package to interact directly with the website's interface.
+This plugin updates your collections daily by grabbing the TMDB IDs from Letterboxd watchlists and collates local TMDB ID matches into collections. Also removes items once they leave your watchlist. Since the Letterboxd API is not publicly available, this project uses the HtmlAgilityPack package to interact directly with the website's interface.
 
 ## Installation
 
@@ -24,21 +15,17 @@ This plugin sends daily updates to the Letterboxd diary informing the films watc
 2. Click the `+` button and add the repository URL below, naming it whatever you like and save.
 
 ```
-https://raw.githubusercontent.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/master/manifest.json
+https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/manifest.json
 ```
 
-3. Go back to `Catalog`, click on 'LetterboxdSync' at 'General' group and install the most recent version.
+3. Go back to `Catalog`, click on 'Letterboxd Watchlist' in the 'Films and Programmes' group and install the most recent version.
 
-4. Restart Jellyfin and go back to the plugin settings. Go to `My Plugins` and click on 'LetterboxdSync' to configure.
+4. Restart Jellyfin and go back to the plugin settings. Go to `My Plugins` and click on 'Letterboxd Watchlist' to add Letterboxds users to track.
    
 ## Configure
 
- - You can associate one Letterboxd account for each Jellyfin user. You need click `Save` for each one.
+ - Add as many Letterboxd accounts as you like and `Save` the config.
 
- - The synchronization task runs every 24 hours and only for uses accounts marked as `Enable`.
+ - The synchronization task runs every 24 hours.
 
- - Check `Send Favorite` if you want films marked as favorites on Jellyfin to be marked as favorites on Letterboxd.
-
-<p align="center">
-    <img src="/images/config-page.png" width="70%">
-</p>
+ - Go to Scheduled Tasks to run or change update cadence.

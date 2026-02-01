@@ -3,10 +3,9 @@ using MediaBrowser.Model.Plugins;
 
 namespace LetterboxdWatchlist.Configuration
 {
-
-    public class Username
+    public class User
     {
-        public string username { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
 
     }
 }

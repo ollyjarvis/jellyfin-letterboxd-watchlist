@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Jellyfin.Data.Enums;
-using Jellyfin.Database.Implementations.Entities.Libraries;
 using Jellyfin.Database.Implementations.Enums;
 using LetterboxdWatchlist.Configuration;
 using MediaBrowser.Controller.Collections;
@@ -7,15 +11,8 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Entities.Movies;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Activity;
-using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Tasks;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LetterboxdWatchlist;
 
@@ -49,11 +46,11 @@ public class LetterboxdWatchlistTask : IScheduledTask
     private static PluginConfiguration Configuration =>
             Plugin.Instance!.Configuration;
 
-    public string Name => "View your Letterboxd Watchlist in Jellyfin";
+    public string Name => "Sync Watchlists";
 
     public string Key => "Letterboxd Watchlist";
 
-    public string Description => "View your Letterboxd Watchlist in Jellyfin";
+    public string Description => "Sync Letterboxd watchlists to Jellyfin Collections";
 
     public string Category => "Letterboxd Watchlist";
 
@@ -66,10 +63,10 @@ public class LetterboxdWatchlistTask : IScheduledTask
         {
             var api = new LetterboxdApi();
 
-            var watchlistItems = await api.GetFilmsFromWatchlist(username.username).ConfigureAwait(false);
-            var watchlistFilmIds = watchlistItems.Select(w => w.filmId).ToList();
+            var letterboxdWatchlist = await api.GetFilmsFromWatchlist(username.Username).ConfigureAwait(false);
+            var watchlistFilmIds = letterboxdWatchlist.Select(w => w.filmId).ToList();
 
-            var localItems = _libraryManager.GetItemList(new InternalItemsQuery
+            var watchlistItems = _libraryManager.GetItemList(new InternalItemsQuery
             {
                 IncludeItemTypes = [BaseItemKind.Movie],
                 IsVirtualItem = false,
@@ -81,6 +78,8 @@ public class LetterboxdWatchlistTask : IScheduledTask
                 HasTmdbId = true
             }).Where(m => m.ProviderIds.Values.Any(p => watchlistFilmIds.Contains(p))).ToList();
 
+            var watchlistItemIds = watchlistItems.Select(m => m.Id).ToList();
+
             var boxSets = _libraryManager.GetItemList(new InternalItemsQuery
             {
                 IncludeItemTypes = [BaseItemKind.BoxSet],
@@ -88,17 +87,39 @@ public class LetterboxdWatchlistTask : IScheduledTask
                 Recursive = true,
             }).Select(b => b as BoxSet).ToList();
 
-            string boxSetTitle = $"{username.username}'s Watchlist";
+            string boxSetTitle = $"{username.Username}'s Watchlist";
 
             var watchlistBoxSet = boxSets.FirstOrDefault(b => string.Equals(b.Name, boxSetTitle, StringComparison.OrdinalIgnoreCase));
 
+            List<Guid> itemsToAdd = watchlistItemIds;
+            List<Guid> watchlistBoxSetItems = new List<Guid>();
+            List<Guid> itemsToRemove = new List<Guid>();
+
+            if (watchlistBoxSet != null)
+            {
+                itemsToAdd = watchlistItems.Where(m => !watchlistBoxSet.ContainsLinkedChildByItemId(m.Id)).Select(m => m.Id).ToList();
+                watchlistBoxSetItems = watchlistBoxSet.LinkedChildren.Where(item => item.ItemId.HasValue).Select(item => item.ItemId.Value).ToList();
+                itemsToRemove = watchlistBoxSetItems.Where(m => !itemsToAdd.Contains(m)).ToList();
+            }
+
+            if (itemsToAdd.Count == 0 && itemsToRemove.Count == 0)
+            {
+                _logger.LogInformation(@"{Username}'s Watchlist is already in sync", username.Username);
+                return;
+            }
+
+            _logger.LogInformation(@"{Add}, {Remove}", itemsToAdd, itemsToRemove);
+
             if (watchlistBoxSet == null)
             {
-                var newBoxSet = await _collectionManager.CreateCollectionAsync(new CollectionCreationOptions
+                watchlistBoxSet = await _collectionManager.CreateCollectionAsync(new CollectionCreationOptions
                 {
                     Name = boxSetTitle,
                 }).ConfigureAwait(false);
             }
+
+            await _collectionManager.RemoveFromCollectionAsync(watchlistBoxSet.Id, itemsToRemove).ConfigureAwait(false);
+            await _collectionManager.AddToCollectionAsync(watchlistBoxSet.Id, itemsToAdd).ConfigureAwait(false);
 
             boxSets = _libraryManager.GetItemList(new InternalItemsQuery
             {
@@ -109,21 +130,20 @@ public class LetterboxdWatchlistTask : IScheduledTask
 
             watchlistBoxSet = boxSets.FirstOrDefault(b => string.Equals(b.Name, boxSetTitle, StringComparison.OrdinalIgnoreCase));
 
-            if (watchlistBoxSet == null)
+            /* REMOVING NOT WORKING (pls help)
+            if (watchlistBoxSet != null)
             {
-                _logger.LogError("BoxSet does not exist after creation.");
-                return;
+                if (watchlistBoxSet.LinkedChildren.Length == 0)
+                {
+                    _logger.LogInformation("Removing box set {BoxSetName} as it is now empty", watchlistBoxSet.Name);
+
+                    _libraryManager.DeleteItem(watchlistBoxSet, new DeleteOptions
+                    {
+                        DeleteFileLocation = false
+                    });
+                }
             }
-
-            var itemsToAdd = localItems.Where(m => !watchlistBoxSet.ContainsLinkedChildByItemId(m.Id)).Select(m => m.Id).ToList();
-
-            if (itemsToAdd.Count == 0)
-            {
-                _logger.LogInformation(@"{Username}'s Watchlist is already complete", username.username);
-                return;
-            }
-
-            await _collectionManager.AddToCollectionAsync(watchlistBoxSet.Id, itemsToAdd).ConfigureAwait(false);
+            */
         }
 
         progress.Report(100);

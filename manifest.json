@@ -1,58 +1,18 @@
 [
   {
-    "guid": "b1fb3d98-3336-4b87-a5c9-8a948bd87233",
-    "name": "LetterboxdSync",
-    "overview": "Syncs watched movies with Letterboxd diary",
-    "description": "A third party plugin to keep your watched movie history automatically updated to a Letterboxd account",
-    "owner": "danielveigasilva",
-    "category": "General",
-    "imageUrl": "https://raw.githubusercontent.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/master/images/letterboxd-sync.png",
+    "guid": "b9bc9cff-1797-4a1e-bf8f-9ecdcf41f82a",
+    "name": "Letterboxd Watchlist",
+    "overview": "Sync Letterboxd watchlists to Jellyfin Collections",
+    "description": "Create collections in Jellyfin that contain all the films found locally that appear in your Letterboxd watchlist",
+    "owner": "ollyjarvis",
+    "category": "Films and Programmes",
+    "imageUrl": "https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/images/letterboxd-watchlist.png",
     "versions": [
-      {
-        "version": "1.1.2.0",
-        "changelog": "- fix: check date last review correct (f9f499e)",
-        "targetAbi": "10.9.0.0",
-        "sourceUrl": "https://github.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/releases/download/v1.1.2/jellyfin-plugin-letterboxd-sync-v1.1.2.zip",
-        "checksum": "ca795994cd1c9ac01a586e28ba9b2a8b",
-        "timestamp": "2025-06-15T00:45:35Z"
-      },
-      {
-        "version": "1.1.1.0",
-        "changelog": "- fix: log movies watched just one day before (b817d28)\n- fix: ignore readme in publish (c2d97b0)\n- fix: update release names (8ac3ba7)\n- docs: update README with count downloads (357a8cd)",
-        "targetAbi": "10.9.0.0",
-        "sourceUrl": "https://github.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/releases/download/v1.1.1/jellyfin-plugin-letterboxd-sync-v1.1.1.zip",
-        "checksum": "fdfbf9b188fecd6cde3116a8773a729b",
-        "timestamp": "2025-06-11T17:38:14Z"
-      },
-      {
-        "version": "1.1.0.0",
-        "changelog": "- feat(publish): automate publish release (ca44bc3)\n- feat(search): find movie only by tmdbid (7cc9d9d)",
-        "targetAbi": "10.9.0.0",
-        "sourceUrl": "https://github.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/releases/download/v1.1.0/jellyfin-plugin-letterboxd-sync-v1.1.0.zip",
-        "checksum": "d5514462054943fc4ef88e1ca7d7a206",
-        "timestamp": "2025-03-20T22:26:45Z"
-      },
-      {
-        "version": "1.0.2.0",
-        "changelog": "- Fix: prevent failure when review id is blank (#1)\n- Refactor: clearer logs",
-        "targetAbi": "10.9.0.0",
-        "sourceUrl": "https://github.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/releases/download/v1.0.2/jellyfin-plugin-letterboxd-sync-v1.0.2.0.zip",
-        "checksum": "a42d4734f41a1f45131abf142ba62fe6",
-        "timestamp": "2025-03-07T00:00:00Z"
-      },
-      {
-        "version": "1.0.1.0",
-        "changelog": "- Fix #2: All research with a TMDB id return no results",
-        "targetAbi": "10.9.0.0",
-        "sourceUrl": "https://github.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/releases/download/v1.0.1/jellyfin-plugin-letterboxd-sync-v1.0.1.0.zip",
-        "checksum": "c998b14487096209b505a02513a05026",
-        "timestamp": "2025-03-05T00:00:00Z"
-      },
       {
         "version": "1.0.0.0",
         "changelog": "- Initial version",
-        "targetAbi": "10.9.0.0",
-        "sourceUrl": "https://github.com/danielveigasilva/jellyfin-plugin-letterboxd-sync/releases/download/v1.0.0/jellyfin-plugin-letterboxd-sync-v1.0.0.0.zip",
+        "targetAbi": "10.11.6.0",
+        "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v1.0.0/jellyfin-letterboxd-watchlist-v1.0.0.0.zip",
         "checksum": "89f9d6e5b02c6907c6952703f30a8c9e",
         "timestamp": "2025-01-18T00:00:00Z"
       }
