@@ -61,9 +61,9 @@ public class LetterboxdWatchlistTask : IScheduledTask
 
         foreach (var username in usernames)
         {
-            var api = new LetterboxdApi();
+            var api = new LetterboxdApi(_loggerFactory);
 
-            var letterboxdWatchlist = await api.GetFilmsFromWatchlist(username).ConfigureAwait(false);
+            var letterboxdWatchlist = await api.GetFilmsFromWatchlist(username, 1).ConfigureAwait(false);
             var watchlistFilmIds = letterboxdWatchlist.Select(w => w.filmId).ToList();
 
             var watchlistItems = _libraryManager.GetItemList(new InternalItemsQuery

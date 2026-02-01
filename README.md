@@ -29,3 +29,9 @@ https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/maste
  - The synchronization task runs every 24 hours.
 
  - Go to Scheduled Tasks to run or change update cadence.
+
+ - For large or many watchlists this will take a while so as to not spam the Letterboxd site too much. I recommend reducing the frequency to every few days/ once a week when searching over 100 films.
+
+## Known Issues
+
+ - Errors on TV shows in watchlist due to TMDB tagging.
