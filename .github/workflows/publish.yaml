@@ -66,7 +66,7 @@ jobs:
                 cd publish
                 zip ${{ github.event.repository.name }}-v${{ steps.ged-version-changelog.outputs.release-version }}.zip \
                 HtmlAgilityPack.dll \
-                LetterboxdSync.dll
+                LetterboxdWatchlist.dll
 
             - name: 'Upload Artefacts'
               uses: actions/upload-artifact@v4
