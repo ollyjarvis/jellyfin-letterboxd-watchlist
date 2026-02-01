@@ -57,13 +57,13 @@ public class LetterboxdWatchlistTask : IScheduledTask
 
     public async Task ExecuteAsync(IProgress<double> progress, CancellationToken cancellationToken)
     {
-        var usernames = Configuration.Users;
+        var usernames = Configuration.Usernames;
 
         foreach (var username in usernames)
         {
             var api = new LetterboxdApi();
 
-            var letterboxdWatchlist = await api.GetFilmsFromWatchlist(username.Username).ConfigureAwait(false);
+            var letterboxdWatchlist = await api.GetFilmsFromWatchlist(username).ConfigureAwait(false);
             var watchlistFilmIds = letterboxdWatchlist.Select(w => w.filmId).ToList();
 
             var watchlistItems = _libraryManager.GetItemList(new InternalItemsQuery
@@ -87,7 +87,7 @@ public class LetterboxdWatchlistTask : IScheduledTask
                 Recursive = true,
             }).Select(b => b as BoxSet).ToList();
 
-            string boxSetTitle = $"{username.Username}'s Watchlist";
+            string boxSetTitle = $"{username}'s Watchlist";
 
             var watchlistBoxSet = boxSets.FirstOrDefault(b => string.Equals(b.Name, boxSetTitle, StringComparison.OrdinalIgnoreCase));
 
@@ -104,7 +104,7 @@ public class LetterboxdWatchlistTask : IScheduledTask
 
             if (itemsToAdd.Count == 0 && itemsToRemove.Count == 0)
             {
-                _logger.LogInformation(@"{Username}'s Watchlist is already in sync", username.Username);
+                _logger.LogInformation(@"{Username}'s Watchlist is already in sync", username);
                 return;
             }
 

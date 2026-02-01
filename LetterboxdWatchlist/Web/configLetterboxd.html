@@ -70,9 +70,7 @@
                         document.querySelectorAll("#configs-host tr").forEach(function (tr) {
                             const username = tr.querySelector("[data-id=username]").value;
 
-                            usernames.push({
-                                username: username,
-                            })
+                            usernames.push(username)
                         })
 
                         const config = {
@@ -108,14 +106,12 @@
                     addNewConfig: function (config = undefined) {
                         console.log(config)
                         if (config === undefined) {
-                            config = {
-                                username: "",
-                            };
+                            config = ""
                         }
 
                         const template = document.querySelector("#pluginConfiguredLetterboxdTemplate");
                         const clone = template.content.cloneNode(true);
-                        clone.querySelector("[data-id=username]").value = config.username;
+                        clone.querySelector("[data-id=username]").value = config;
 
                         clone.querySelector("[data-id=remove-button]").addEventListener("click", LetterboxdWatchlist.removeConfig);
 

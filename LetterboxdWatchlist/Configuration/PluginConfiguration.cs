@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using MediaBrowser.Model.Plugins;
 
 namespace LetterboxdWatchlist.Configuration
 {
     public class PluginConfiguration : BasePluginConfiguration
     {
-        public User[] Users { get; set; } = Array.Empty<User>();
+        public List<string> Usernames { get; set; } = new List<string>();
     }
 }
