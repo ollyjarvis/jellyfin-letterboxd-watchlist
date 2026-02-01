@@ -7,7 +7,7 @@ framework: "net9.0"
 overview: "Sync Letterboxd watchlists to Jellyfin Collections"
 description: >
   Create collections in Jellyfin that contain all the films found locally that appear in your Letterboxd watchlist.
-category: "Film and Programmes"
+category: "MoviesAndShows"
 owner: "jellyfin"
 artifacts:
 - "LetterboxdWatchlist.dll"
