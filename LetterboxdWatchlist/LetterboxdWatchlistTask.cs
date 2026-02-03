@@ -97,9 +97,10 @@ public class LetterboxdWatchlistTask : IScheduledTask
 
             if (watchlistBoxSet != null)
             {
-                itemsToAdd = watchlistItems.Where(m => !watchlistBoxSet.ContainsLinkedChildByItemId(m.Id)).Select(m => m.Id).ToList();
                 watchlistBoxSetItems = watchlistBoxSet.LinkedChildren.Where(item => item.ItemId.HasValue).Select(item => item.ItemId.Value).ToList();
-                itemsToRemove = watchlistBoxSetItems.Where(m => !itemsToAdd.Contains(m)).ToList();
+
+                itemsToAdd = watchlistItemIds.Except(watchlistBoxSetItems).ToList();
+                itemsToRemove = watchlistBoxSetItems.Except(watchlistItemIds).ToList();
             }
 
             if (itemsToAdd.Count == 0 && itemsToRemove.Count == 0)

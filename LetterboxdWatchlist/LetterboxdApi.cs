@@ -1,15 +1,10 @@
-using HtmlAgilityPack;
-using MediaBrowser.Controller.Collections;
-using MediaBrowser.Controller.Library;
-using MediaBrowser.Model.Activity;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace LetterboxdWatchlist;
 
@@ -26,7 +21,7 @@ public class LetterboxdApi
 
     public async Task<List <FilmResult>> GetFilmsFromWatchlist(string username, int pageNum)
     {
-        // _logger.LogInformation(@"{Url}", "https://letterboxd.com/" + username + "/watchlist/page/" + pageNum + "/");
+        _logger.LogInformation(@"Grabbing Watchlist: {Url}", "https://letterboxd.com/" + username + "/watchlist/page/" + pageNum + "/");
 
         var handler = new HttpClientHandler()
         {
@@ -94,7 +89,7 @@ public class LetterboxdApi
             var res = await client.GetAsync(Url).ConfigureAwait(false);
             res.EnsureSuccessStatusCode();
 
-            // _logger.LogInformation(@"{StatusCode}, {Content}, {Url}", res.StatusCode, res.Content, Url);
+            _logger.LogInformation(@"Grabbing Film: {StatusCode}, {Content}, {Url}", res.StatusCode, res.Content, Url);
 
             string letterboxdUrl = res?.RequestMessage?.RequestUri?.ToString();
             var filmSlugRegex = Regex.Match(letterboxdUrl, @"https:\/\/letterboxd\.com\/film\/([^\/]+)\/");
