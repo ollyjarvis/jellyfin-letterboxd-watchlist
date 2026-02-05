@@ -59,6 +59,8 @@ public class LetterboxdWatchlistTask : IScheduledTask
     {
         var usernames = Configuration.Usernames;
 
+        _logger.LogInformation(@"Checking watchlists of {Usernames}", usernames);
+
         foreach (var username in usernames)
         {
             var api = new LetterboxdApi(_loggerFactory);
@@ -106,7 +108,7 @@ public class LetterboxdWatchlistTask : IScheduledTask
             if (itemsToAdd.Count == 0 && itemsToRemove.Count == 0)
             {
                 _logger.LogInformation(@"{Username}'s Watchlist is already in sync", username);
-                return;
+                continue;
             }
 
             _logger.LogInformation(@"{Add}, {Remove}", itemsToAdd, itemsToRemove);
