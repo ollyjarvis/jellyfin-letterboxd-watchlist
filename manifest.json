@@ -9,6 +9,14 @@
     "imageUrl": "https://raw.githubusercontent.com/ollyjarvis/jellyfin-letterboxd-watchlist/master/images/letterboxd-watchlist.png",
     "versions": [
       {
+        "version": "0.0.6.0",
+        "changelog": "- return -> continue to not break looping (21008af)",
+        "targetAbi": "10.11.6.0",
+        "sourceUrl": "https://github.com/ollyjarvis/jellyfin-letterboxd-watchlist/releases/download/v0.0.6/jellyfin-letterboxd-watchlist-v0.0.6.zip",
+        "checksum": "35d7b4c7d3609bf036cfae4d5bd50d5e",
+        "timestamp": "2026-02-05T18:57:14Z"
+      },
+      {
         "version": "0.0.5.0",
         "changelog": "- fix add/remove logic (5ae611c)\n- Update README.md (c6c85c8)",
         "targetAbi": "10.11.6.0",
